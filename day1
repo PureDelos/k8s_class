@@ -131,3 +131,105 @@ apt-get install -y kubeadm=1.13.1-00 kubelet=1.13.1-00 kubectl=1.13.1-00
 
 kubeadm join 192.168.108.160:6443 --token 7l25fl.sqj1m2bcjkxlaw0b --discovery-token-ca-cert-hash sha256:30592907ea58f37e5e9c96688180f6ffc534751cd56eecc34ca9048e209d983c
 
+## master $$
+- student -
+kubectl describe node | grep -i taint
+
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+kubectl create deployment nginx --image=nginx
+
+kubectl describe deployments nginx
+
+kubectl get events
+
+kubectl get deployment nginx -o yaml
+
+kubectl get deployment nginx -o yaml > first.yaml
+
+kubectl delete deployment nginx
+
+kubectl create -f first.yaml
+
+kubectl get deployment nginx -o yaml > second.yaml
+
+diff first.yaml second.yaml
+
+kubectl create deployment two --image=nginx --dry-run -o yaml
+
+kubectl get deployment
+
+kubectl get deployments nginx --export -o yaml
+
+kubectl get deployments nginx --export -o json
+
+kubectl expose -h
+
+kubectl expose deployment/nginx
+
+kubectl replace -f first.yaml
+
+kubectl get deploy,pod
+
+kubectl expose deployment/nginx
+
+kubectl get svc nginx
+
+kubectl get ep nginx
+
+kubectl describe pod nginx-7db75b8b78-n9q2q | grep Node:
+
+## worker ##
+sudo tcpdump -i tunl0
+
+## master ##
+curl 10.110.61.185:80
+
+curl 192.168.108.161:80
+
+kubectl get deployment nginx
+
+kubectl scale deployment nginx --replicas=3
+
+kubectl get deployment nginx
+
+kubectl get ep nginx
+
+kubectl get po -o wide
+
+kubectl delete po nginx-7db75b8b78-frgjq
+
+kubectl get po
+
+kubectl get ep nginx
+
+curl 10.110.61.185:80
+
+kubectl get po
+
+kubectl exec nginx-7db75b8b78-hlh2g -- printenv | grep KUBERNETES
+
+kubectl get svc
+
+kubectl delete svc nginx
+
+kubectl expose deployment nginx --type=LoadBalancer
+
+kubectl get svc
+
+kubectl expose deployment nginx --type=NodePort
+
+kubectl scale deployment nginx --replicas=0
+
+kubectl get po
+
+kubectl scale deployment nginx --replicas=2
+
+kubectl get po
+
+kubectl delete deployments nginx
+
+kubectl delete ep nginx
+
+kubectl delete svc nginx
+
