@@ -16,12 +16,15 @@ root / abc123
 
 <static ip 설정>
 /etc/network/interfaces
-dhcp -> static
-address
-netmask
-broadcast
-gateway
-dns-nameserver
+
+dhcp->static
+
+iface ens33 inet static
+address 192.168.108.160
+netmask 255.255.255.0
+broadcast 192.168.108.255
+gateway 192.168.108.2
+dns-nameservers 192.168.108.2
 설정
 
 <vi>
@@ -29,4 +32,31 @@ cw(word change)
 x(한문자 삭제)
 u(undo)
 
+<xshell 설정>
 
+</etc/hosts>
+192.168.108.160 master
+192.168.108.161 worker1
+
+<swap disable>
+/etc/fstab
+#UUID=71fd7508-6dc0-4a32-8e3b-8a3b3bb60cfb none            swap    sw              0       0
+
+# 확인 : swapon -s => 출력 없음.
+
+<sudoer>
+## sudo group member 확인
+# id -a student
+uid=1000(student) gid=1000(student) groups=1000(student),4(adm),24(cdrom),*27(sudo)*,30(dip),46(plugdev),110(lxd),115(lpadmin),116(sambashare)
+
+/etc/sudoers
+%sudo   ALL=(ALL:ALL) NOPASSWD: ALL
+
+
+=============================================================
+< Solution download >
+wget --user=LFtraining --password=Penguin2014 https://training.linuxfoundation.org/cm/LFS458/LFS458_V1.13.1-u1_SOLUTIONS.tar.bz2
+tar -xvf LFS458_V1.13.1-u1_SOLUTIONS.tar.bz2
+cp LFS458/SOLUTIONS/*/* ~student/lab
+cp -r LFS458/SOLUTIONS/s_04 ~student/lab
+cp -r LFS458/SOLUTIONS/s_16 ~student/lab
