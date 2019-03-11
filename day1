@@ -13,3 +13,20 @@ root / abc123
 <subnet>
 192.168.108.0/24
 192.168.108.2 - gateway
+
+<static ip 설정>
+/etc/network/interfaces
+dhcp -> static
+address
+netmask
+broadcast
+gateway
+dns-nameserver
+설정
+
+<vi>
+cw(word change)
+x(한문자 삭제)
+u(undo)
+
+
