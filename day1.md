@@ -8,7 +8,7 @@ CKA - Ubuntu 기반
 
 -----
 
-# 사전 세팅
+# 사전 세팅 #
 ## OS 계정 ##
 * student / student
 * root / abc123
@@ -48,7 +48,7 @@ vi /etc/hosts
 ## swap disable ##
 ```bash
 vi /etc/fstab
-#UUID=71fd7508-6dc0-4a32-8e3b-8a3b3bb60cfb none            swap    sw              0       0
+# 주석처리 > UUID=71fd7508-6dc0-4a32-8e3b-8a3b3bb60cfb none            swap    sw              0       0
 
 # 확인 : swapon -s => 출력 없음
 ```
@@ -100,6 +100,7 @@ wget https://tinyurl.com/y8lvqc9g -O calico.yaml
 grep -i cidr -A 5 calico.yaml
 
 kubeadm init --kubernetes-version 1.13.1 --pod-network-cidr 192.168.0.0/16 | tee kubeadm-init.out
+
 ###
 To start using your cluster, you need to run the following as a regular user:
 
