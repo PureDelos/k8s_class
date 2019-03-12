@@ -131,13 +131,13 @@ apt-get install -y kubeadm=1.13.1-00 kubelet=1.13.1-00 kubectl=1.13.1-00
 
 kubeadm join 192.168.108.160:6443 --token 7l25fl.sqj1m2bcjkxlaw0b --discovery-token-ca-cert-hash sha256:30592907ea58f37e5e9c96688180f6ffc534751cd56eecc34ca9048e209d983c
 
-## master $$
+## master ##
 - student -
 kubectl describe node | grep -i taint
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
-< 오브젝트  >
+< deployment 생성 >
 kubectl create deployment nginx --image=nginx
 
 kubectl describe deployments nginx
