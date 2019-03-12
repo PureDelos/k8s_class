@@ -223,3 +223,164 @@ python -m json.tool apps/v1beta1/serverresources.json | grep kind
 
 kubectl delete po curlpod
 ```
+
+* kubectl api-versions
+* kubectl api-resources
+* kubectl explain {object}
+
+# 6.1
+```bash 
+kubectl config view
+
+kubectl get secrets --all-namespaces
+
+kubectl get secrets
+
+kubectl describe secrets default-token-6j2ws
+
+export token=$(kubectl describe secrets default-token-6j2ws | grep ^token | cut -f7 -d ' ')
+
+curl https://192.168.108.160:6443/apis --header "Authorization: bearer $token" -k
+
+curl https://192.168.108.160:6443/api/v1 --header "Authorization: bearer $token" -k
+
+curl https://192.168.108.160:6443/api/v1/namespaces --header "Authorization: bearer $token" -k
+
+kubectl run -i -t busybox --image=busybox --restart=Never
+
+ls /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+```
+
+# 6.2
+```bash 
+kubectl proxy -h
+
+kubectl proxy --api-prefix=/
+
+kubectl proxy --api-prefix=/ &
+
+curl http://127.0.0.1:8001/api
+
+curl http://127.0.0.1:8001/api/v1/namespaces
+```
+
+# 6.3
+```bash 
+kubectl create -f job.yaml
+
+kubectl get job
+
+kubectl describe jobs.batch sleepy
+
+kubectl get jobs.batch sleepy -o yaml
+
+kubectl delete jobs.batch sleepy
+
+vi job.yaml
+#spec:
+#  completions: 5   <== add
+#  template:
+#    spec:
+
+kubectl create -f job.yaml
+
+kubectl get job
+
+kubectl get pod
+
+kubectl delete jobs.batch sleepy
+
+vi job.yaml
+#spec:
+#  completions: 5
+#  parallelism: 2   <== add
+#  template:
+#    spec:
+
+kubectl create -f job.yaml
+
+kubectl get pod
+
+kubectl get job
+
+vi job.yaml
+#spec:
+#  completions: 5
+#  parallelism: 2
+#  activeDeadlineSeconds: 15  <== add
+#  template:
+#    spec:
+#      containers:
+#      - name: resting
+#        image: busybox
+#        command: ["/bin/sleep"]
+#        args: ["5"]  <== edit
+
+kubectl delete jobs.batch sleepy
+
+kubectl create -f job.yaml
+
+kubectl get job
+
+kubectl get job sleepy -o yaml
+
+kubectl delete jobs.batch sleepy
+```
+
+# 6.4
+```bash 
+cp job.yaml cronjob.yaml
+
+vi cronjob.yaml
+#apiVersion: batch/v1beta1
+#kind: CronJob
+#metadata:
+#  name: sleepy
+#spec:
+#  schedule: "*/2 * * * *"
+#  jobTemplate:
+#    spec:
+#      template:
+#        spec:
+#          containers:
+#          - name: resting
+#            image: busybox
+#            command: ["/bin/sleep"]
+#            args: ["3"]
+#          restartPolicy: Never
+
+kubectl create -f cronjob.yaml
+
+kubectl get cronjob
+
+kubectl get job
+
+vi cronjob.yaml
+#apiVersion: batch/v1beta1
+#kind: CronJob
+#metadata:
+#  name: sleepy
+#spec:
+#  schedule: "*/2 * * * *"
+#  jobTemplate:
+#    spec:
+#      template:
+#        spec:
+$          activeDeadlineSeconds: 10  <== Add
+#          containers:
+#          - name: resting
+#            image: busybox
+#            command: ["/bin/sleep"]
+#            args: ["30"]
+#          restartPolicy: Never
+
+kubectl delete cronjobs.batch sleepy
+
+kubectl create -f cronjob.yaml
+
+kubectl get cronjob
+
+kubectl get job
+
+kubectl delete cronjobs.batch sleepy
+```
