@@ -384,3 +384,66 @@ kubectl get job
 
 kubectl delete cronjobs.batch sleepy
 ```
+
+# 7.1
+```bash 
+kubectl get rs
+
+vi rs.yaml
+
+kubectl create -f rs.yaml
+
+kubectl describe rs rs-one
+
+kubectl get po
+
+kubectl delete rs rs-one --cascade=false
+
+kubectl get rs rs-one
+
+kubectl get po
+
+kubectl create -f rs.yaml
+
+kubectl get rs
+
+kubectl get po
+
+kubectl edit po rs-one-dqmdl
+#  labels:
+#    system: IsolatedPod  <== change
+
+kubectl get rs
+
+kubectl get po -L system
+
+kubectl delete rs rs-one
+
+kubectl get rs
+
+kubectl get po
+
+kubectl delete po -l system=IsolatedPod
+```
+
+# 7.2
+```bash 
+cp rs.yaml ds.yaml
+
+vi ds.yaml
+#apiVersion: extensions/v1beta1
+#kind: DaemonSet
+#metadata:
+#  name: ds-one
+#spec:
+#  template:
+#    metadata:
+#      labels:
+#        system: DaemonSetOne
+#    spec:
+#      containers:
+#      - name: nginx
+#        image: nginx:1.9.1
+#        ports:
+#        - containerPort: 80
+```
