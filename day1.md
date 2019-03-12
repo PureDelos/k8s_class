@@ -162,6 +162,8 @@ kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
 # 오브젝트 생성 확인 #
+## master ##
+### student ###
 ```bash
 # nginx deployment 생성
 
@@ -211,12 +213,14 @@ kubectl describe pod nginx-7db75b8b78-n9q2q | grep Node:
 ```
 
 ## worker ##
+### student ###
 ```bash
 # tcp 모니터링
 sudo tcpdump -i tunl0
 ```
 
 ## master ##
+### student ###
 ```bash
 # tcp 요청 확인
 curl 10.110.61.185:80
