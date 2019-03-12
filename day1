@@ -137,6 +137,7 @@ kubectl describe node | grep -i taint
 
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
+< 오브젝트  >
 kubectl create deployment nginx --image=nginx
 
 kubectl describe deployments nginx
