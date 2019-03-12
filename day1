@@ -55,7 +55,7 @@ uid=1000(student) gid=1000(student) groups=1000(student),4(adm),24(cdrom),*27(su
 
 =============================================================
 < Solution download >
-wget --user=LFtraining --password=Penguin2014 https://training.linuxfoundation.org/cm/LFS458/LFS458_V1.13.1-u1_SOLUTIONS.tar.bz2
+wget --user=LFtr****** --password=Pen******** https://training.linuxfoundation.org/cm/LFS458/LFS458_V1.13.1-u1_SOLUTIONS.tar.bz2
 tar -xvf LFS458_V1.13.1-u1_SOLUTIONS.tar.bz2
 cp LFS458/SOLUTIONS/*/* ~student/lab
 cp -r LFS458/SOLUTIONS/s_04 ~student/lab
