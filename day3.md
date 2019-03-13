@@ -385,6 +385,198 @@ kubectl edit ingress ingress-test
 curl -H "Host: thirdpage.org" http://192.168.108.160/
 ```
 
-# 10.
+# 11.1
+```bash
+kubectl get nodes
+
+kubectl describe nodes | grep -i label
+
+kubectl describe nodes | grep -i taint
+
+kubectl get deployments --all-namespaces
+
+## master
+sudo docker ps | wc -l
+24
+
+## worker
+sudo docker ps | wc -l
+14
+
+kubectl label nodes master status=vip
+
+kubectl label nodes worker1 status=other
+
+kubectl get nodes --show-labels
+
+kubectl create -f vip.yaml
+
+## master
+sudo docker ps | wc -l
+29
+
+## worker
+sudo docker ps | wc -l
+14
+
+kubectl delete pod vip
+
+vi vip.yaml
+# #  nodeSelector:
+# #    status: vip
+
+kubectl get pods
+
+## master
+sudo docker ps | wc -l
+24
+
+## worker
+sudo docker ps | wc -l
+19
+
+cp vip.yaml other.yaml
+
+sed -i s/vip/other/g other.yaml
+
+vi other.yaml
+#  nodeSelector:
+#    status: other
+
+kubectl create -f other.yaml
+
+## master
+sudo docker ps | wc -l
+24
+
+## worker
+sudo docker ps | wc -l
+14
+
+kubectl delete pods vip other
+
+kubectl get pods
+```
+
+# 11.2
+```bash
+kubectl delete deployment secondapp thirdpage
+
+kubectl create -f taint.yaml
+
+sudo docker ps | grep nginx
+
+## master
+sudo docker ps | wc -l
+26
+
+## worker
+sudo docker ps | wc -l
+24
+
+kubectl delete deployment taint-deployment
+
+## master
+sudo docker ps | wc -l
+24
+
+kubectl taint node worker1 bubba=value:PreferNoSchedule
+
+kubectl describe nodes | grep -i taint
+
+kubectl create -f taint.yaml
+
+## master
+sudo docker ps | wc -l
+32
+
+## worker
+sudo docker ps | wc -l
+18
+
+kubectl delete deployment taint-deployment
+
+kubectl taint nodes worker1 bubba-
+
+kubectl describe nodes | grep -i taint
+
+kubectl taint node worker1 bubba=value:NoSchedule
+
+kubectl create -f taint.yaml
+
+## master
+sudo docker ps | wc -l
+40
+
+## worker
+sudo docker ps | wc -l
+10
+
+kubectl delete deployment taint-deployment
+
+kubectl taint nodes worker1 bubba-
+
+kubectl create -f taint.yaml
+
+## master
+sudo docker ps | wc -l
+26
+
+## worker
+sudo docker ps | wc -l
+24
+
+kubectl taint node worker1 bubba=value:NoExecute
+
+## master
+sudo docker ps | wc -l
+40
+
+## worker
+sudo docker ps | wc -l
+6
+
+kubectl taint nodes worker1 bubba-
+
+## master
+sudo docker ps | wc -l
+40
+
+## worker
+sudo docker ps | wc -l
+10
+
+kubectl get nodes
+
+kubectl drain worker1
+
+kubectl get nodes
+
+kubectl delete deployment taint-deployment
+
+kubectl create -f taint.yaml
+
+## master
+sudo docker ps | wc -l
+40
+
+kubectl uncordon worker1
+
+kubectl get nodes
+
+## master
+sudo docker ps | wc -l
+26
+
+kubectl delete deployment taint-deployment
+```
+
+# 11.
 ```bash
 
+```
+
+# 11.
+```bash
+
+```
