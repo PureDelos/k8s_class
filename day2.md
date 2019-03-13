@@ -446,4 +446,85 @@ vi ds.yaml
 #        image: nginx:1.9.1
 #        ports:
 #        - containerPort: 80
+
+kubectl create -f ds.yaml
+
+kubectl get ds
+
+kubectl get po
+
+kubectl describe po ds-one-n94cr | grep Image:
+```
+
+# 7.3
+```bash 
+kubectl get ds ds-one -o yaml | grep -A 1 Strategy
+
+kubectl set image ds ds-one nginx=nginx:1.12.1-alpine
+
+kubectl describe po ds-one-n94cr | grep Image:
+
+kubectl delete po ds-one-n94cr
+
+kubectl get po
+
+kubectl describe po ds-one-srd57 | grep Image:
+
+kubectl describe po ds-one-xmlq4 | grep Image:
+
+kubectl rollout history ds ds-one
+
+kubectl rollout history ds ds-one --revision=1
+
+kubectl rollout history ds ds-one --revision=2
+
+kubectl rollout undo ds ds-one --to-revision=1
+
+kubectl describe po ds-one-xmlq4 | grep Image:
+
+kubectl delete po ds-one-xmlq4
+
+kubectl get po
+
+kubectl describe po ds-one-bp5qm | grep Image:
+
+kubectl describe ds | grep Image:
+
+kubectl get ds ds-one -o yaml 
+
+kubectl get ds ds-one -o yaml --export > ds2.yaml
+
+vi ds2.yaml
+#  3 metadata:
+#  4   creationTimestamp: null
+#  5   generation: 1
+#  6   labels:
+#  7     system: DaemonSetOne
+#  8   name: ds-two <== change
+
+# 37   updateStrategy:
+# 38     type: RollingUpdate <== change
+
+kubectl create -f ds2.yaml
+
+kubectl get po
+
+kubectl describe po ds-two-7b49n | grep Image:
+
+kubectl edit ds ds-two
+#       - image: nginx:1.12.1-alpine <= change
+
+kubectl get ds ds-two
+
+kubectl get po
+
+kubectl describe po ds-two-pglc8 | grep Image:
+
+kubectl rollout status ds ds-two
+
+kubectl rollout history ds ds-two
+
+kubectl rollout history ds ds-two --revision=2
+
+kubectl delete ds ds-two
 ```
