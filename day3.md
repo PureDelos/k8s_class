@@ -331,6 +331,60 @@ kubectl -n small get pv
 kubectl delete pv/pvvol-1
 ```
 
+# 10.1
+```bash
+kubectl create deployment secondapp --image=nginx
+
+kubectl get deployment secondapp -o yaml | grep label -A2
+
+kubectl expose deployment secondapp --type=NodePort --port=80
+
+kubectl create -f ingress.rbac.yaml 
+
+wget https://tinyurl.com/yawpexdt -O traefik-ds.yaml
+
+kubectl create -f traefik-ds.yaml
+
+kubectl create -f ingress.rule.yaml
+
+ip a
+
+curl -H "Host: www.example.com" http://192.168.108.160/
+
+kubectl create deployment thirdpage --image=nginx
+
+kubectl get deployment thirdpage -o yaml | grep -A2 label
+
+kubectl expose deployment thirdpage --type=NodePort --port=80
+
+kubectl exec -it thirdpage-7bd8d45875-jd72t -- /bin/bash
+
+cat > /usr/share/nginx/html/index.html
+This is the ingress test!!!!!!!
+^d
+exit
+
+kubectl edit ingress ingress-test 
+#spec:
+#  rules:
+#  - host: www.example.com
+#    http:
+#      paths:
+#      - backend:
+#          serviceName: secondapp
+#          servicePort: 80
+#        path: /
+#  - host: thirdpage.org
+#    http:
+#      paths:
+#      - backend:
+#          serviceName: thirdpage
+#          servicePort: 80
+#        path: /
+
+curl -H "Host: thirdpage.org" http://192.168.108.160/
+```
+
 # 10.
 ```bash
-```
+
