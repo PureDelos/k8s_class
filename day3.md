@@ -570,13 +570,3 @@ sudo docker ps | wc -l
 
 kubectl delete deployment taint-deployment
 ```
-
-# 11.
-```bash
-
-```
-
-# 11.
-```bash
-
-```
